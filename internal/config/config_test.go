@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"io/ioutil"
 	"os"
-	"path"
+	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -41,7 +41,7 @@ func TestConfigure(t *testing.T) {
 		stdout := &bytes.Buffer{}
 		Configure(stdin, stdout)
 
-		filePath := path.Join(testPath, "glcli.yaml")
+		filePath := filepath.Join(testPath, "glcli.yaml")
 		want := "Gitlab Host [https://abc.com]: Gitlab Token (scope: api) [NjEaWdDcARhzYKdx4fA4]: \nConfig saved to " + filePath + "\n"
 		got := stdout.String()
 
@@ -57,7 +57,7 @@ func TestConfigure(t *testing.T) {
 		stdout := &bytes.Buffer{}
 		Configure(stdin, stdout)
 
-		filePath := path.Join(dir, "glcli.yaml")
+		filePath := filepath.Join(dir, "glcli.yaml")
 		want := "Gitlab Host [https://gitlab.com]: Gitlab Token (scope: api) [None]: \nConfig saved to " + filePath + "\n"
 		got := stdout.String()
 
