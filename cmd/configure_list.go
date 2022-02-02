@@ -3,7 +3,6 @@ package cmd
 import (
 	"os"
 
-	"github.com/alekseiapa/glcli/internal/config"
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +11,7 @@ var configureListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all configuration",
 	Run: func(cmd *cobra.Command, args []string) {
-		config.List(os.Stdout)
+		c.List(os.Stdout)
 	},
 }
 
