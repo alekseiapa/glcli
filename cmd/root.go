@@ -7,10 +7,11 @@ import (
 	"path/filepath"
 
 	conf "github.com/alekseiapa/glcli/internal/config"
-	"github.com/alekseiapa/glcli/internal/gitlab"
+	"github.com/alekseiapa/glcli/internal/gitlab/project"
 	"github.com/alekseiapa/glcli/internal/utils"
 	"github.com/spf13/cobra"
 	"github.com/tcnksm/go-gitconfig"
+	"github.com/xanzy/go-gitlab"
 )
 
 // rootCmd represents the base command when called without any subcommands.
@@ -53,20 +54,23 @@ func initConfig() {
 	}
 }
 
-func currentRepo() string {
+func currentProject() string {
 	url, err := gitconfig.OriginURL()
 	if err != nil {
 		log.Fatal("not a git repository")
 	}
-
 	return utils.ParseRepo(url)
 }
 
-func gitlabManager() *gitlab.Manager {
-	m, err := gitlab.NewManager(config.Get("host"), config.Get("token"), os.Stdout)
-	if err != nil {
+func gitlabClient() *gitlab.Client {
+	c := gitlab.NewClient(nil, config.Get("token"))
+	if err := c.SetBaseURL(config.Get("host")); err != nil {
 		log.Fatal(err)
+		return nil
 	}
+	return c
+}
 
-	return m
+func projectManager() *project.Manager {
+	return project.NewManager(gitlabClient(), currentProject(), os.Stdout)
 }
