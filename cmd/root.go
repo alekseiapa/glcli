@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	conf "github.com/alekseiapa/glcli/internal/config"
+	"github.com/alekseiapa/glcli/internal/gitlab/group"
 	"github.com/alekseiapa/glcli/internal/gitlab/project"
 	"github.com/alekseiapa/glcli/internal/utils"
 	"github.com/spf13/cobra"
@@ -73,4 +74,8 @@ func gitlabClient() *gitlab.Client {
 
 func projectManager() *project.Manager {
 	return project.NewManager(gitlabClient(), currentProject(), os.Stdout)
+}
+
+func groupManager() *group.Manager {
+	return group.NewManager(gitlabClient(), os.Stdout)
 }
