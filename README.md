@@ -15,8 +15,16 @@
 
 ## Installation
 
+### Homebrew
+
+```shell script
+brew install cloudingcity/tap/glcli
+```
+
 ### Source
 
 ```shell script
-go get -u github.com/alekseiapa/glcli
+git clone git@github.com:cloudingcity/glcli.git
+cd glcli
+make install
 ```
