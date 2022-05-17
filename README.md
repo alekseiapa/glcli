@@ -12,6 +12,7 @@
 - Easy to configure gitlab settings
 - Show all merge requests that created by you or assigned to you
 - Open page in default browser
+- Lint `.gtilab-ci.yml`
 
 ## Installation
 
@@ -38,6 +39,7 @@ Usage:
   glcli [command]
 
 Available Commands:
+  ci          Manage gitlab ci
   config      Init or list glcli CLI options
   mr          Manage merge requests
   own         Manage own resources
