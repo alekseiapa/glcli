@@ -3,18 +3,14 @@ package group
 import (
 	"io"
 
+	"github.com/alekseiapa/glcli/internal/gitlab/contract"
 	"github.com/alekseiapa/glcli/internal/gitlab/render"
 	"github.com/xanzy/go-gitlab"
 )
 
-// GitlabSearchService is go-gitlab search service interface.
-type GitlabSearchService interface {
-	MergeRequestsByGroup(gid interface{}, query string, opt *gitlab.SearchOptions, options ...gitlab.OptionFunc) ([]*gitlab.MergeRequest, *gitlab.Response, error)
-}
-
 type searchService struct {
 	group  string
-	search GitlabSearchService
+	search contract.GitlabSearch
 	out    io.Writer
 }
 
