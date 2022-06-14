@@ -23,6 +23,17 @@
 brew install cloudingcity/tap/glcli
 ```
 
+### Binary
+
+Download the pre-built binaries from the [Releases](https://github.com/alekseiapa/glcli/releases) page. Extract them, move it to your `$PATH`.
+
+```shell script
+curl -OL https://github.com/alekseiapa/glcli/releases/download/v0.6.1/glcli_0.6.1_Linux_x86_64.tar.gz
+tar -xzvf glcli_0.6.1_Linux_x86_64.tar.gz
+mv glcli /usr/local/bin/glcli
+glcli version
+```
+
 ### Source
 
 ```shell script
