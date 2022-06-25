@@ -121,3 +121,11 @@ $ glcli depend go example.com/pokemon/eevee --group pokemon
 $ glcli ci lint .gitlab-ci.yml
 Valid!
 ```
+
+## Development
+
+### Running gitlab on a container
+
+```shell script
+docker-compose up -d
+```
