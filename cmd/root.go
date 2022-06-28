@@ -2,10 +2,12 @@ package cmd
 
 import (
 	"log"
+	"net/url"
 	"os"
 	"path/filepath"
 
 	conf "github.com/alekseiapa/glcli/internal/config"
+	"github.com/alekseiapa/glcli/internal/git"
 	"github.com/alekseiapa/glcli/internal/gitlab/global"
 	"github.com/alekseiapa/glcli/internal/gitlab/group"
 	"github.com/alekseiapa/glcli/internal/gitlab/project"
@@ -84,4 +86,12 @@ func groupManager(g string) *group.Manager {
 
 func globalManager() *global.Manager {
 	return global.NewManager(gitlabClient(), os.Stdout)
+}
+
+func gitCmd() *git.Git {
+	host, err := url.Parse(config.Get("host"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	return git.New(host)
 }
