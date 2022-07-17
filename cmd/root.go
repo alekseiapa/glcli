@@ -6,12 +6,11 @@ import (
 	"path/filepath"
 
 	conf "github.com/alekseiapa/glcli/internal/config"
+	"github.com/alekseiapa/glcli/internal/git"
 	"github.com/alekseiapa/glcli/internal/gitlab/global"
 	"github.com/alekseiapa/glcli/internal/gitlab/group"
 	"github.com/alekseiapa/glcli/internal/gitlab/project"
-	"github.com/alekseiapa/glcli/internal/utils"
 	"github.com/spf13/cobra"
-	"github.com/tcnksm/go-gitconfig"
 	"github.com/xanzy/go-gitlab"
 )
 
@@ -52,14 +51,6 @@ func initConfig() {
 	}
 }
 
-func currentProject() string {
-	u, err := gitconfig.OriginURL()
-	if err != nil {
-		log.Fatal("not a git repository")
-	}
-	return utils.ParseGitProject(u)
-}
-
 func gitlabClient() *gitlab.Client {
 	c := gitlab.NewClient(nil, config.Get("token"))
 	if err := c.SetBaseURL(config.Get("host")); err != nil {
@@ -71,7 +62,7 @@ func gitlabClient() *gitlab.Client {
 
 func projectManager(p *string) *project.Manager {
 	if p == nil {
-		temp := currentProject()
+		temp := git.CurrentRepo()
 		p = &temp
 	}
 
