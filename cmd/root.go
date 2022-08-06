@@ -8,6 +8,7 @@ import (
 	"time"
 
 	conf "github.com/alekseiapa/glcli/internal/config"
+	"github.com/alekseiapa/glcli/internal/errors"
 	"github.com/alekseiapa/glcli/internal/git"
 	"github.com/alekseiapa/glcli/internal/gitlab/global"
 	"github.com/alekseiapa/glcli/internal/gitlab/group"
@@ -27,14 +28,14 @@ var rootCmd = &cobra.Command{
 // Execute adds all child commands to the root command and sets flags appropriately.
 func Execute() {
 	if cmd, err := rootCmd.ExecuteC(); err != nil {
-		handleError(cmd, err)
+		errors.Handle(cmd, err)
 	}
 }
 
 func init() {
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	rootCmd.SetFlagErrorFunc(func(cmd *cobra.Command, err error) error {
-		return &flagError{err}
+		return &errors.FlagError{Err: err}
 	})
 	cobra.OnInitialize(initConfig)
 
